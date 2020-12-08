@@ -1,0 +1,30 @@
+\documentclass[11pt, reqno]{article}
+
+\input{packages}
+\usepackage{lipsum} % please remove this option when you start the work.
+
+\title{Lecture notes}
+\author{Author}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Abstract.
+\end{abstract}
+
+\tableofcontents
+
+\begin{adjustwidth}{5cm}{0cm} % put sections inside of this environment
+%
+\section{Lecture 1}
+\input{lectures/lec1}
+%
+\end{adjustwidth}
+
+\nocite{*} % please remove this option when you finish the work.
+\bibliography{reff}
+\bibliographystyle{amsplain}
+
+\end{document}

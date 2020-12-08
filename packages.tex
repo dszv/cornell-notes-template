@@ -1,0 +1,183 @@
+%% PACKAGES
+\usepackage[vmargin=2.54cm,
+            hmargin=2.54cm,
+            reversemarginpar,
+            marginpar=4.5cm,
+            marginparsep=-4.5cm]{geometry}
+\usepackage{changepage}
+\usepackage[fulladjust]{marginnote}
+% \usepackage{fancyhdr}
+%
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, english]{babel}
+\usepackage{amssymb, amsthm, amsmath, amsfonts}
+\usepackage{kpfonts}
+%
+\usepackage{microtype}
+\usepackage{nicefrac}
+%
+\usepackage{derivative}
+%
+\usepackage{hyperref, url}
+\usepackage[inline]{enumitem}
+%
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{multirow, multicol}
+%
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[labelfont=bf]{caption}
+%
+\usepackage[numbers]{natbib}
+
+
+%% FORMATTING
+% Packages needed
+\usepackage{lineno}
+\usepackage{mathtools}
+\usepackage{xpatch}
+
+% Header and footpage
+% \fancypagestyle{plain}{%
+% \fancyhf{} % clear all header and footer fields
+% \fancyfoot[L, R]{}
+% \fancyfoot[C]{\thepage}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0.4pt}}
+% %
+% \pagestyle{fancy}
+% \fancyhead[L, C, R]{}
+% \fancyfoot[L, R]{}
+% \fancyfoot[C]{\thepage}
+% \renewcommand{\headwidth}{15.92cm}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0.4pt}
+% \setlength{\headheight}{52pt}% ...at least 51.60004pt
+%
+% Mathematical expressions formatting
+\newtheoremstyle{mod1}              % name
+    {8.0pt plus 2.0pt minus 4.0pt}  % Space above
+    {8.0pt plus 2.0pt minus 4.0pt}  % Space below
+    {\itshape}                      % Body font
+    {}                              % Indent amount
+    {\scshape}                      % Theorem head font
+    {.}                             % Punctuation after theorem head
+    {.5em}                          % Space after theorem head
+    {}                              % Theorem head spec
+
+\newtheoremstyle{mod2}              % name
+    {8.0pt plus 2.0pt minus 4.0pt}  % Space above
+    {8.0pt plus 2.0pt minus 4.0pt}  % Space below
+    {}                              % Body font
+    {}                              % Indent amount
+    {\scshape}                      % Theorem head font
+    {.}                             % Punctuation after theorem head
+    {.5em}                          % Space after theorem head
+    {}                              % Theorem head spec
+
+% \theoremstyle{plain}
+\theoremstyle{mod1}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem} 
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+
+% \theoremstyle{definition}
+\theoremstyle{mod2}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{exercise}{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% Unindent theorem and proof
+\makeatletter
+    \let\sv@thm\@thm
+    \def\@thm{\let\indent\relax\sv@thm}
+\makeatother
+
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  %\itemindent\normalparindent
+  \item[\hskip\labelsep
+        % \itshape
+        \scshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+% Mathtools package with temporary solution for unumbered equations
+\mathtoolsset{showonlyrefs=true , showmanualtags=true}
+\MHInternalSyntaxOn
+\xpatchcmd{\MT_extended_tagform:n}{
+  \@ifundefined{MT_r_\df@label}{}
+}{%
+ \@ifundefined{MT_r_\df@label}{\kern1sp}
+}{}{\typeout{patch failed}}
+\xpatchcmd{\MT_extended_tagform:n}{
+\@ifundefined{MT_r_\df@label}{\global\MH_set_boolean_F:n {manual_tag}}
+}{%
+\@ifundefined{MT_r_\df@label}{\global\MH_set_boolean_F:n {manual_tag}\kern1sp}
+}{}{\typeout{patch failed}}
+\MHInternalSyntaxOff
+
+
+%% NEW COMMANDS
+% Summary and notes
+\newtcolorbox{summ}{arc=0mm, colframe=black, coltitle=black, fonttitle=\bfseries, title=Summary, attach title to upper={\ ---\ }}
+\newenvironment{summary}
+    {\begin{adjustwidth}{-5cm}{0cm}
+    \begin{summ}
+    }
+    {
+    \end{summ}
+    \end{adjustwidth}
+    }
+
+\renewcommand*{\raggedleftmarginnote}{}
+\newcommand{\note}[1]{\marginnote{#1}}
+
+% Math
+% Brackets
+\DeclarePairedDelimiter{\qtyp}{(}{)}
+\DeclarePairedDelimiter{\qtys}{[}{]}
+\DeclarePairedDelimiter{\qtyb}{\{}{\}}
+
+% Norms
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\makeatletter
+\let\oldqtyp\qtyp
+\def\qtyp{\@ifstar{\oldqtyp}{\oldqtyp*}}
+%
+\let\oldqtys\qtys
+\def\qtys{\@ifstar{\oldqtys}{\oldqtys*}}
+%
+\let\oldqtyb\qtyb
+\def\qtyb{\@ifstar{\oldqtyb}{\oldqtyb*}}
+%
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+% Differentiation
+\newcommand{\dd}[2][]{\mathrm{d}^{#1} {#2}}
+\newcommand{\idd}[2][]{\, \mathrm{d}^{#1} {#2}\, }
+\newcommand{\var}[2][]{\mathrm{\delta}^{#1} {#2}}
+\newcommand{\Var}[1]{\mathrm{\Delta} {#1}}
+
+% Unit vectors
+\newcommand{\vbi }{\textbf{\textup{\i }}}
+\newcommand{\vbj }{\textbf{\textup{\j }}}
