@@ -134,12 +134,14 @@
 % Summary and notes
 \newtcolorbox{summ}{arc=0mm, colframe=black, coltitle=black, fonttitle=\bfseries, title=Summary, attach title to upper={\ ---\ }}
 \newenvironment{summary}
-    {\begin{adjustwidth}{-5cm}{0cm}
+    {\vfill
+    \begin{adjustwidth}{-5cm}{0cm}
     \begin{summ}
     }
     {
     \end{summ}
     \end{adjustwidth}
+    \newpage
     }
 
 \renewcommand*{\raggedleftmarginnote}{}
